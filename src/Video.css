@@ -1,0 +1,30 @@
+.box{
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.box a .thumbnail{
+    width: 128px;
+    height: 74px;
+    margin-right: 8px;
+    border-radius: 8px;
+}
+
+.box .info{
+    display: block;
+}
+
+.box .info .title{
+    font-size: 14px;
+    max-width: 180px;
+    margin-bottom: 10px;
+}
+
+.box .info .channelName{
+    font-size: 10px;
+    margin-bottom: 4px;
+}
+
+.box .info .views{
+    font-size: 10px;
+}
