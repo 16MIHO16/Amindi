@@ -1,115 +1,318 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
-  FaBars,
-  FaMicrophone,
-  FaVideoSlash,
-  FaBell,
-  FaThumbsUp,
-  FaThumbsDown,
-  FaShare,
-  FaDownload,
+  FaSearch,
+  FaPlusCircle,
+  FaGlobeAmericas,
+  FaUser,
 } from "react-icons/fa";
 import "./App.css";
 import "./reset.css";
-import Video from "./Video";
-
-const link = [
-  "https://www.youtube.com/watch?v=o6zb6_TTVWo",
-  "https://www.youtube.com/watch?v=5UIhTNzyNTY",
-  "https://www.youtube.com/watch?v=0HjYAtGBi9Y",
-  "https://www.youtube.com/watch?v=CZWN13vgFl8",
-  "https://www.youtube.com/watch?v=0_CTFm6Kh0s&t=732s",
-];
-
-const thumbnails = [
-  "https://i.ytimg.com/vi/o6zb6_TTVWo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAlE95Jc8TpFL7fKXbSvfuiJLeeFg",
-  "https://i.ytimg.com/vi/5UIhTNzyNTY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC3frRR5jR-loQc2TR49QP63YBZ1Q",
-  "https://i.ytimg.com/vi/0HjYAtGBi9Y/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAX6RBsOccypbMJ3_XAZOY8bdm5Pg",
-  "https://i.ytimg.com/vi/CZWN13vgFl8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC4XNp7BUHnN7YNiIy2NBzcJvqETQ",
-  "https://i.ytimg.com/vi/0_CTFm6Kh0s/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDrpCUN8SHLoYW82h3Lk1umsYIcOA",
-];
-
-const titles = [
-  "Stranded in Alaska's Rainforest - 3 Days Solo camping",
-  "ბოლო სეზონი - წამმზომი (სერია 1)",
-  "FLIPPING THE TEMPLE | God Of War - Part 9",
-  "მთვრალი GAMA-ნადგურებლები! ",
-  "რომელია საუკეთესო ბურგერი?",
-];
-
-const channelName = [
-  "Outdoor Boys",
-  "ბოლო სეზონი - The Last Season",
-  "jacksepticeye",
-  "Rati's Bar",
-  "Hungryman - ჰანგრიმენი",
-];
-
-const views = [
-  "8.7M views",
-  "290K views",
-  "6.2M views",
-  "242K views",
-  "886K views",
-];
+import DropDown from "./DropDown.jsx";
+import Container from "./Container.jsx";
 
 function App() {
+  const [data, setData] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
+  const [lowPrice, setLowPrice] = useState(0);
+  const [highPrice, setHighPrice] = useState(10000000);
+  const [lowProdYear, setLowProdYear] = useState(0);
+  const [highProdYear, setHighProdYear] = useState(new Date().getFullYear());
+  const [customsPassed, setCustomsPassed] = useState();
+  const [colour, setColour] = useState();
+  const [customsPassedTrueColour, setCustomsPassedTrueColour] = useState();
+  const [customsPassedFalseColour, setCustomsPassedFalseColour] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://api2.myauto.ge/ka/products?TypeID=0&ForRent=0&Mans=41&CurrencyID=3&MileageType=1&Page=1&fbclid=IwAR2refR0eY1LBXLbpfA2wAxf8rQ11bM-ITXZ1N-HeSKwt4aGLkBaskLVWEU"
+      )
+      .then((response) => {
+        setData(response.data.data.items);
+        setOriginalData(response.data.data.items);
+        console.log(response.data.data.items);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!lowPrice || isNaN(lowPrice) || lowPrice === null || lowPrice === "") {
+      setLowPrice(0);
+    }
+
+    if (
+      !highPrice ||
+      isNaN(highPrice) ||
+      highPrice === null ||
+      highPrice === "" ||
+      highPrice === undefined
+    ) {
+      setHighPrice(100000000);
+    }
+
+    if (
+      !lowProdYear ||
+      isNaN(lowProdYear) ||
+      lowProdYear === null ||
+      lowProdYear === "" ||
+      lowProdYear === undefined
+    ) {
+      setLowProdYear(0);
+    }
+
+    if (
+      !highProdYear ||
+      isNaN(highProdYear) ||
+      highProdYear === null ||
+      highProdYear === "" ||
+      highProdYear === undefined
+    ) {
+      setHighProdYear(new Date().getFullYear());
+    }
+    console.log(lowPrice, highPrice, lowProdYear, highProdYear);
+  }, [lowPrice, highPrice, lowProdYear, highProdYear]);
+
+  const setColorByNumber = (number) => {
+    if (number === 16) {
+      return "black";
+    } else if (number === 14) {
+      return "blue";
+    } else if (number === 13) {
+      return "gray";
+    } else if (number === 12) {
+      return "silver";
+    } else if (number === 1) {
+      return "white";
+    } else if (number === 8) {
+      return "red";
+    } else if (number === 5) {
+      return "green";
+    } else if (number === 6) {
+      return "gold";
+    }
+  };
+
+  const currencies = [
+    <>{<FaGlobeAmericas />} ქართული ₾</>,
+    <>{<FaGlobeAmericas />} American dollar $</>,
+    <>{<FaGlobeAmericas />} British pound £</>,
+  ];
+
+  const colours = [
+    "black",
+    "blue",
+    "gray",
+    "white",
+    "red",
+    "silver",
+    "green",
+    "gold",
+  ];
+
+  const countDataLength = () => {
+    return data.length;
+  };
+
+  const customsPassedTr = () => {
+    setCustomsPassedTrueColour({ backgroundColor: "rgb(95, 235, 95)" });
+    setCustomsPassedFalseColour({ backgroundColor: "white" });
+    setCustomsPassed(true);
+  };
+
+  const customsPassedFl = () => {
+    setCustomsPassedFalseColour({ backgroundColor: "rgb(95, 235, 95)" });
+    setCustomsPassedTrueColour({ backgroundColor: "white" });
+    setCustomsPassed(false);
+  };
+
+  const customsPassedCheck = (parameter) => {
+    if (customsPassed === undefined || customsPassed === null) {
+      return true;
+    } else {
+      return parameter.customs_passed === customsPassed;
+    }
+  };
+
+  const colourCheck = (parameter) => {
+    if (colour === undefined || colour === null) {
+      return true;
+    } else {
+      return setColorByNumber(parameter.color_id) === colour;
+    }
+  };
+
+  const searchButtonHandler = () => {
+    setData(originalData);
+    console.log("data: ", data);
+    const filteredData = originalData.filter((parameter) => {
+      return (
+        parameter.price <= highPrice &&
+        parameter.price >= lowPrice &&
+        parameter.prod_year >= lowProdYear &&
+        parameter.prod_year <= highProdYear &&
+        customsPassedCheck(parameter) &&
+        colourCheck(parameter)
+      );
+    });
+    setData(filteredData);
+    console.log("data", data);
+    console.log("originaldata", originalData);
+    setCurrentPage(1);
+  };
+
+  const handleColourSelection = (selectedValue) => {
+    setColour(selectedValue);
+  };
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
-    <div className="youtube">
+    <div className="myAuto">
       <header>
-        <FaBars className="bars" />
-        <img
-          className="youtubeLogo"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/YouTube_Logo_%282013-2017%29.svg/2560px-YouTube_Logo_%282013-2017%29.svg.png"
-        />
-        <input type="text" placeholder="Search" />
-        <button className="SearchButton">Search</button>
-        <FaMicrophone className="microphoneIcon" />
-        <FaVideoSlash className="videoSlash" />
-        <FaBell className="bell" />
-        <img
-          className="profilePicture"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
-        />
+        <div className="title">
+          <img className="myAutoLogo" src="./src/images/myAuto.png" />
+          <div className="searchContainer">
+            <button className="searchIconButton">
+              <FaSearch className="searchIcon" />
+            </button>
+            <input className="searchInput" type="text" placeholder="ძებნა" />
+          </div>
+          <button className="addButton">
+            <FaPlusCircle /> დამატება
+          </button>
+          <DropDown
+            classNm="currencyDownToggle"
+            name={<>{<FaGlobeAmericas />} ქართული ₾</>}
+            massive={currencies}
+          />
+          <button className="userLogIn">
+            <FaUser /> შესვლა
+          </button>
+        </div>
+        <div className="catalogue">
+          <a href="https://myauto.ge/ka/calculator">განბაჟება/გაფორმება</a>
+          <a href="https://myauto.ge/ka/vin">VIN-ის შემოწმება</a>
+          <a href="https://myauto.ge/ka/dealers/1">დილერები</a>
+          <a href="https://myauto.ge/ka/autosalons">ავტოსალონები</a>
+          <a href="https://auction.myauto.ge/">აუქციონი</a>
+          <a href="https://myparts.ge/ka/">ავტონაწილები</a>
+          <a href="https://myauto.ge/ka/catalog">კატალოგი</a>
+          <a href="https://blog.myauto.ge/ka/">ბლოგი</a>
+          <a href="https://www.myauto.ge/ka/help">დახმარება</a>
+          <a href="https://myauto.ge/ka/contact">კონტაქტი</a>
+        </div>
       </header>
-      <section>
-        <div className="videoPlay">
-          <iframe src="https://www.youtube.com/embed/FPl3Unb_pIA"></iframe>
-          <div className="items">
-            <h1>UFC Las Vegas : იანი VS დვალიშვილი</h1>
-            <div className="channel">
-              <img src="https://yt3.ggpht.com/-F3HAHjoY--zyQF9RpxbUL_OGiVMChnFjPKJ_0XaTXQRj9bgl3IXoTbfW1zUuLktrEMpP3oDVQ=s48-c-k-c0x00ffffff-no-rj" />
-              <div className="channelTitile">
-                <p className="channelName">Setanta Sports UFC</p>
-                <p className="subscribers">173K subscribers</p>
-              </div>
-              <button className="subscribe">Subscribe</button>
-              <button className="like">
-                <FaThumbsUp />
-              </button>
-              <button className="dislike">
-                <FaThumbsDown />
-              </button>
-              <button className="share">
-                <FaShare /> Share
-              </button>
-              <FaDownload className="download" />
+      <div className="searchBox">
+        <div className="searchBoxBox">
+          <div className="searchInputs">
+            <div className="priceInputs">
+              <p>ფასი:</p>
+              <input
+                type="text"
+                placeholder="-დან"
+                onChange={(e) => setLowPrice(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="-მდე"
+                onChange={(e) => setHighPrice(e.target.value)}
+              />
+            </div>
+
+            <div className="prudYearInputs">
+              <p>წელი:</p>
+              <input
+                type="text"
+                placeholder="-დან"
+                onChange={(e) => setLowProdYear(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="-მდე"
+                onChange={(e) => setHighProdYear(e.target.value)}
+              />
             </div>
           </div>
-        </div>
-        <div className="suggestedVideos">
-          {link.map((p, i) => (
-            <Video
-              key={i}
-              link={p}
-              thumbnail={thumbnails[i]}
-              title={titles[i]}
-              channelName={channelName[i]}
-              views={views[i]}
+
+          <div className="otherSearches">
+            <div className="customsPassedButtons">
+              <button
+                className="customsPassedTrue"
+                onClick={customsPassedTr}
+                style={customsPassedTrueColour}
+              >
+                განბაჟებული
+              </button>
+              <button
+                className="customsPassedFalse"
+                onClick={customsPassedFl}
+                style={customsPassedFalseColour}
+              >
+                განუბაჟებელი
+              </button>
+            </div>
+
+            <DropDown
+              classNm="colourDropDown"
+              name="ფერი"
+              massive={colours}
+              selectedItem={colour}
+              onSelect={handleColourSelection}
             />
-          ))}
+          </div>
         </div>
-      </section>
+        <button className="searchButton" onClick={searchButtonHandler}>
+          ძებნა ({countDataLength()})
+        </button>
+      </div>
+      <div className="carList">
+        {currentItems.map((p) => (
+          <Container
+            key={p.car_id}
+            photo={p.photo}
+            car_id={p.car_id}
+            color_id={p.color_id}
+            price={p.price}
+            prod_year={p.prod_year}
+            customs_passed={p.customs_passed}
+          />
+        ))}
+      </div>
+
+      <div className="pagination">
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          წინა
+        </button>
+        {Array.from(
+          { length: Math.ceil(data.length / itemsPerPage) },
+          (_, i) => (
+            <button key={i} onClick={() => paginate(i + 1)}>
+              {i + 1}
+            </button>
+          )
+        )}
+
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={indexOfLastItem >= data.length}
+        >
+          შემდეგი
+        </button>
+      </div>
     </div>
   );
 }

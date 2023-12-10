@@ -1,195 +1,172 @@
-/* Header */
-.youtube header {
-  display: flex;
-  margin-top: 12px;
-  padding-left: 16px;
-  padding-right: 16px;
+.myAuto{
+  padding-top: 10px;
+  background-color: rgb(229, 231, 235);
 }
 
-.youtube header .bars { 
-  margin-top: 7px;
-  margin-right: 18px;
+.myAuto header{
+  height: 110px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+  border: 1px red solid;
+  background-color: white;
+  display: block; 
+  align-items: center; 
 }
 
-.youtube header .youtubeLogo {
+.myAuto header .title{
+  display: flex; 
+}
+
+.myAuto header .title img{
+  width: 120px;
+}
+
+.searchContainer {
+  display: flex; 
+  align-items: center; 
+  margin-left: 14px;
+  margin-right: 260px;
+}
+
+.searchInput {
+  width: 260px;
   height: 30px;
-  width: 90px;
-  margin-right: 200px;
+  border-radius:  0 10px 10px 0; 
+  border: 1px black solid;
+  padding-left: 10px; 
+  font-size: 12px;
 }
 
-.youtube header input{
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    width: 360px;
-    padding-left: 12px;
-    border: black solid 0.3px;
+.searchIconButton {
+  height: 30px;
+  border: 1px black solid;
+  border-right: none;
+  border-radius: 10px 0 0 10px; 
+  background: none;
+  padding: 1px 10px 3px 4px; 
 }
 
-.youtube header .SearchButton{
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border: 0.3px solid black;
-    border-left: none;
+.addButton{
+  border-radius: 8px;
+  background-color: #ffe2da;
+  height: 30px;
+  border: none;
+  padding-bottom: 4px;
+  padding-left: 6px;
+  padding-right: 6px;
+  color: #fc4609;
+  font-size: 12px;
+  align-items: center;
 }
 
-.youtube header .SearchButton:hover {
-  opacity: 0.7;
-  cursor: pointer;
+.userLogIn{
+  height: 30px;
+  background: none;
+  border: 1px black solid;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-left: 16px;
 }
 
-.youtube header .SearchButton:active {
-  opacity: 0.4;
+.myAuto header .catalogue{
+  display: flex;
+  margin-top: 18px;
+  padding-left: 20px;
 }
 
-.youtube header .microphoneIcon,
-.youtube header .videoSlash,
-.youtube header .bell {
-  margin-top: 8px;
-  width: 40px;
+.myAuto header .catalogue a{
+  text-decoration: none;
+  color: inherit;
+  font-size: 12px;
+  text-align: center;
+  margin-right: 20px;
 }
 
-.youtube header .microphoneIcon {
+.myAuto .carList{
+  display:grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  padding-left: 60px;
+  margin-top: 40px;
+}
+
+.myAuto .searchBox{
+  display: block;
+  width: 620px;
+  height: 240px;
+  background-color: white;
+  margin-left: 200px;
+  margin-top: 40px;
+  padding-top: 20px;
+  padding-left: 20px;
+  border-radius: 12px;
+  border: #fc4609 1px solid;
+}
+
+.searchBoxBox{
+  display: flex;
+}
+
+.priceInputs,.prudYearInputs, .otherSearches .customsPassedButtons{
+  display: flex;
+  align-items: center;
+}
+
+.priceInputs input , .prudYearInputs input{
+  width: 100px;
+  height: 36px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-right: 6px;
   margin-left: 8px;
+  border: 1px solid black;
+  border-radius: 8px;
 }
 
-.youtube header .videoSlash {
+.otherSearches{
+  margin-left: 30px;
+}
+
+.customsPassedButtons button{
+  margin-top: 20px;
+  background-color: white;
+  border: 1px black solid;
+  height: 36px;
+}
+
+.customsPassedButtons .customsPassedTrue{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.customsPassedButtons .customsPassedFalse{
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: none;
+}
+
+.searchButton{
+  border-radius: 10px;
+  border: none;
+  background-color: #fc4609;
+  width: 300px;
+  height: 36px;
+  color: white;
   margin-left: 140px;
 }
 
-.youtube header .bell {
-  margin-left: 6px;
-}
-
-.youtube header .profilePicture {
-  width: 32px;
-  margin-left: 6px;
-}
-
-/* Section */
-.youtube section {
-  display: flex;
-}
-
-.youtube section .videoPlay {
-  display: block;
-  margin-right: 70px;
-}
-
-.youtube section .videoPlay iframe {
+.pagination {
+  margin-left: 420px;
   margin-top: 20px;
-  margin-left: 20px;
-  width: 600px;
-  height: 345px;
-  border-radius: 16px;
 }
 
-.youtube section .videoPlay .items h1 {
-  margin-top: 10px;
-  margin-left: 20px;
-}
-
-.youtube section .videoPlay .items .channel {
-  display: flex;
-  margin-top: 8px;
-}
-
-.youtube section .videoPlay .items .channel img {
-  border-radius: 1000px;
-  width: 30px;
-  margin-left: 20px;
-  margin-top: 6px;
-}
-
-.youtube section .videoPlay .items .channel .channelTitile {
-  margin-left: 8px;
-}
-
-.youtube section .videoPlay .items .channel .channelTitile .channelName {
-  font-size: 16px;
-  margin-top: 4px;
-  margin-left: 8px;
-}
-
-.youtube section .videoPlay .items .channel .channelTitile .subscribers {
-  font-size: 12px;
-  margin-top: 6px;
-  margin-left: 8px;
-}
-
-.youtube section .videoPlay .items .channel .subscribe,
-.youtube section .videoPlay .items .channel .like,
-.youtube section .videoPlay .items .channel .dislike,
-.youtube section .videoPlay .items .channel .share {
-  margin-top: 8px;
-  width: 66px;
-  height: 28px;
-  border-radius: 30px;
-  border: none;
-  transition: opacity 0.3s;
-}
-
-.youtube section .videoPlay .items .channel .subscribe{
-    margin-left: 14px;
-    width: 120px;
-    height: 26px;
-    border-radius: 30px;
-    background-color: black;
-    color: white;
-    border: 1px solid black;
-}
-
-.youtube section .videoPlay .items .channel .like{
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-right: 0.5px solid black;
-    margin-left: 60px;
-}
-
-.youtube section .videoPlay .items .channel .dislike{
-    padding-top: 4px;
-    width: 46px;
-    margin-right: 20px;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-
-.youtube section .videoPlay .items .channel .subscribe:hover,
-.youtube section .videoPlay .items .channel .like:hover,
-.youtube section .videoPlay .items .channel .dislike:hover,
-.youtube section .videoPlay .items .channel .share:hover,
-.youtube section .videoPlay .items .channel .download:hover,
-.youtube header .microphoneIcon:hover,
-.youtube header .videoSlash:hover,
-.youtube header .bell:hover,
-.youtube header .bars:hover{
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.youtube section .videoPlay .items .channel .subscribe:active,
-.youtube section .videoPlay .items .channel .like:active,
-.youtube section .videoPlay .items .channel .dislike:active,
-.youtube section .videoPlay .items .channel .share:active,
-.youtube section .videoPlay .items .channel .download:active,
-.youtube header .microphoneIcon:active,
-.youtube header .videoSlash:active,
-.youtube header .bell:active,
-.youtube header .bars:active {
-  opacity: 0.4;
-}
-
-.youtube section .videoPlay .items .channel .download {
-  margin-top: 14px;
-  margin-left: 18px;
-}
-
-/* section Videos*/
-
-.youtube section .suggestedVideos{
-  display: block;
-  margin-top: 24px;
+.pagination button{
+  border: 1px solid #fc4609;
+  background: #fc4609;
+  color: white;
+  margin-right: 10px;
+  margin-bottom: 30px;
+  border-radius: 4px;
 }
