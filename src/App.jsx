@@ -33,6 +33,7 @@ function App() {
           console.error("Universities API Error:", error);
         });
 
+      setCurrentPage(1);
       setCountryInit(getCountryInitials(country));
     }
   }, [country]);
